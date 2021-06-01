@@ -52,6 +52,8 @@ function varReset() {
 
     red = 0
 
+    green = 0
+
     gracePeriod = 0
 
     tutText = "Welcome! Progress by walking that way \u2192"
@@ -329,6 +331,14 @@ function drawMisc() {
     ctx.fill()
     ctx.closePath()
 
+    //green screen on healing
+    green -= 1
+    ctx.beginPath()
+    ctx.rect(0,0,canvas.width, canvas.height)
+    ctx.fillStyle = "rgba(0, 255, 0, " + green/100 +")"
+    ctx.fill()
+    ctx.closePath()
+
 
     //bandaid
     if(bandaid.exists) {
@@ -503,8 +513,6 @@ function checkInteraction() {
                         if(enemies[i].health <= 0) {
                             enemies[i].dood = true
                         }
-
-
                     }
                 }
             }
@@ -517,11 +525,12 @@ function checkInteraction() {
     for(var i=0 ; i<size ; i++) {
         if(enBullets[i].x + enBullets[i].d >= block.x && enBullets[i].x <= block.x + block.d) {
             if(enBullets[i].y + enBullets[i].dy >= block.y && enBullets[i].y <= block.y + block.d) {
-
+                enBullets[i].y = -50
                 if(gracePeriod > 0) continue
                 red = 50
                 block.health -= 5
                 gracePeriod = 100
+                
 
             }
         }
@@ -550,6 +559,7 @@ function checkInteraction() {
             if(!bandaid.exists) return
             bandaid.exists = false
             block.health += 50
+            green = 50
             if(block.health >= block.maxhealth) block.health = block.maxhealth
         }
     }
@@ -647,6 +657,14 @@ function winst() {
             d: unit * 2,
             exists: true
         }
+    } else {
+        if(level == 5) {
+            tutText = "The best of luck on the rest of your journey!"
+            subTutText = "You will need it!"
+        } else {
+            tutText = ""
+            subTutText = ""
+        }
     }
 }
 
@@ -666,25 +684,33 @@ function stoppauseorwhatever() {
 
 function setPascal() {
     person = "pascal"
-
+    Array.from(document.querySelectorAll("button")).forEach(btn => {
+        btn.blur();
+    });
     varReset()
 }
 
 function setJelmer() {
     person = "jelmer"
-
+    Array.from(document.querySelectorAll("button")).forEach(btn => {
+        btn.blur();
+    });
     varReset()
 }
 
 function setSam() {
     person = "sam"
-
+    Array.from(document.querySelectorAll("button")).forEach(btn => {
+        btn.blur();
+    });
     varReset()
 }
 
 function setTobin() {
     person = "tobin"
-
+    Array.from(document.querySelectorAll("button")).forEach(btn => {
+        btn.blur();
+    });
     varReset()
 }
 
