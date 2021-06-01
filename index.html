@@ -7,10 +7,27 @@ canvas {
     margin: 0 auto;
     background-color: lightblue;
 }
+#butdiv{
+    width: 960;
+    display: block;
+    margin: 0 auto;
+}
+#butdiv button {
+    width: 25%;
+    height: 50px;
+    background-color: #00ccff;
+    transition-duration: 0.2s;
+    border: solid #29e0ff 2px
+}
+#butdiv button:hover {
+    background-color: #66ffff;
+}
 </style>
 </head>
 <body>
-<canvas id="mycanvas" width="960" height="480"></canvas><button onclick="setPascal()">Pascal</button> <button onclick="setJelmer()">Jelmer</button> <button onclick="setSam()">Sam</button> <button onclick="setTobin()">Tobin</button>
+<canvas id="mycanvas" width="960" height="480"></canvas>
+<div id="butdiv"><button onclick="setPascal()">Pascal</button><button id="jelmerButton" onclick="setJelmer()">Jelmer ($1000)</button><button id="samButton" onclick="setSam()">Sam ($1000)</button><button id="tobinButton" onclick="setTobin()">Tobin ($1000)</button></div>
+
 
 
 <script src="./files/script.js"></script>

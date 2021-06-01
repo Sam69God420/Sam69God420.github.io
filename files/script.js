@@ -5,9 +5,18 @@ unit = canvas.height / 20
 
 person = "pascal"
 
+tutText = "Welcome! Progress by walking that way \u2192"
+subTutText = "You can use your arrow keys to move!"
+
 varReset()
 
 highScore = 0
+
+knaken = 0
+
+jelmerUnlocked = false
+samUnlocked = false
+tobinUnlocked = false
 
 function varReset() {
 
@@ -57,9 +66,6 @@ function varReset() {
 
     gracePeriod = 0
 
-    tutText = "Welcome! Progress by walking that way \u2192"
-    subTutText = "You can use your arrow keys to move!"
-
     alreadyShot = false
     
     metronomeValue = 50
@@ -71,6 +77,9 @@ function varReset() {
         d: unit * 2,
         exists: false
     }
+
+    
+
 }
 
 
@@ -159,8 +168,16 @@ function drawBlock() {
     gracePeriod -= 1
 
     if(block.health <= 0) {
+        
         if(level >= highScore) {
             highScore = level
+        }
+        if(highScore <= 5) {
+            tutText = "Welcome! Progress by walking that way \u2192"
+            subTutText = "You can use your arrow keys to move!"
+        } else {
+            tutText = "You can skip the tutorial if you want."
+            subTutText = "Just press 's'!"
         }
         clearInterval(x)
         paused = true
@@ -327,7 +344,7 @@ function drawBackgroundMisc() {
     ctx.beginPath()
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText("Level: " + level + ". Highest level: " + highScore, 50, 50);
+    ctx.fillText("Level: " + level + ". Highest level: " + highScore + ". Knaken ($): " + knaken + ".", 50, 50);
     ctx.closePath()
 
 
@@ -471,6 +488,13 @@ document.addEventListener("keydown", function(e) {
                                     paused = false
                                     varReset()
                                 } 
+                            } else {
+                                if(e.key == "s") {
+                                    if(level < 2) {
+                                        level = 4
+                                        winst()
+                                    }
+                                }
                             }
                         }
                     }
@@ -551,6 +575,7 @@ function checkInteraction() {
                         bullets[o].y = -50
                         if(enemies[i].health <= 0) {
                             enemies[i].dood = true
+                            knaken += enemies[i].worth
                         }
                     }
                 }
@@ -635,7 +660,8 @@ function winst() {
                 type: "loop",
                 speed: 0,
                 speedhandicap: 1,
-                direction: "left"
+                direction: "left",
+                worth: 5
             }
         }
     } else if(level == 2) {
@@ -653,7 +679,8 @@ function winst() {
                 type: "loop",
                 speed: 0,
                 speedhandicap: 0.3,
-                direction: "left"
+                direction: "left",
+                worth: 10
             },
             1: {
                 x: unit*30,
@@ -666,7 +693,8 @@ function winst() {
                 type: "loop",
                 speed: 0,
                 speedhandicap: 0.5,
-                direction: "left"
+                direction: "left",
+                worth: 10
             }
         }
     } else if(level == 3) {
@@ -684,7 +712,8 @@ function winst() {
                 type: "shoot",
                 speed: 0,
                 speedhandicap: 0,
-                direction: "left"
+                direction: "left",
+                worth: 20
             }
         }
     } else if(level == 4) {
@@ -732,7 +761,8 @@ function winst() {
                 type: theType,
                 speed: 0,
                 speedhandicap: Math.random() * 0.7,
-                direction: "left"
+                direction: "left",
+                worth: 20 + Math.round(Math.random() * level)
             }
 
         }
@@ -764,6 +794,7 @@ function stoppauseorwhatever() {
 
 
 function setPascal() {
+
     person = "pascal"
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
@@ -772,27 +803,68 @@ function setPascal() {
 }
 
 function setJelmer() {
-    person = "jelmer"
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
+
+    if(!jelmerUnlocked) {
+        check = checkKnaken(1000)
+        if(!check) return;
+    }
+    
+    document.getElementById("jelmerButton").innerHTML = "Jelmer"
+    jelmerUnlocked = true
+    person = "jelmer"
+    
     varReset()
 }
 
 function setSam() {
-    person = "sam"
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
+
+    if(!samUnlocked) {
+        check = checkKnaken(1000)
+        if(!check) return;
+    }
+
+    document.getElementById("samButton").innerHTML = "Sam"
+    samUnlocked = true
+    person = "sam"
+    
+
     varReset()
 }
 
 function setTobin() {
-    person = "tobin"
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
+
+    if(!tobinUnlocked) {
+        check = checkKnaken(100)
+        if(!check) return;
+    }
+
+    document.getElementById("tobinButton").innerHTML = "Tobin"
+    tobinUnlocked = true
+    person = "tobin"
+    
     varReset()
+}
+
+function checkKnaken(a) {
+    if(knaken < a) {
+        tutText = "You don't have enough money!"
+        subTutText = "Go kill some people or something..."
+        return false
+    }
+    tutText = "Welcome! Progress by walking that way \u2192"
+    subTutText = "You can use your arrow keys to move!"
+    knaken -= 100
+    return true
+    
 }
 
 function metronome() {
