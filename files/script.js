@@ -72,8 +72,6 @@ function varReset() {
     }
 }
 
-cubeimg=new Image();
-cubeimg.src="./files/pascal.png";
 
 //drawing
 
@@ -277,9 +275,7 @@ function drawEnemies() {
                         direction: "left"
                     }
                 }
-
             }
-
         }
     }
 }
@@ -341,12 +337,18 @@ function drawMisc() {
 
 
     //bandaid
+    aidimg=new Image();
+    aidimg.src = "./files/bandaid.png";
     if(bandaid.exists) {
+        	
         ctx.beginPath()
+        ctx.drawImage(aidimg, bandaid.x, bandaid.y)
+        ctx.closePath()
+        /*ctx.beginPath()
         ctx.rect(bandaid.x, bandaid.y, bandaid.d, bandaid.d)
         ctx.fillStyle = "white"
         ctx.fill()
-        ctx.closePath()
+        ctx.closePath()*/
     }
     
 }
