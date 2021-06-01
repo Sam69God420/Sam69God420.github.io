@@ -843,7 +843,7 @@ function setTobin() {
     });
 
     if(!tobinUnlocked) {
-        check = checkKnaken(100)
+        check = checkKnaken(1000)
         if(!check) return;
     }
 
