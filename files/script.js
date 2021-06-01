@@ -7,6 +7,7 @@ person = "pascal"
 
 varReset()
 
+highScore = 0
 
 function varReset() {
 
@@ -77,17 +78,17 @@ function varReset() {
 
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
-    drawBackgroundMisc()
-    drawBlock()
+    drawEnemies() 
     drawFloor()
+    drawBackgroundMisc()
     drawBullets()
-    drawEnemies()    
     drawMisc()
-    checkInteraction()
+    checkInteraction() 
+    drawBlock()
     metronome()
 }
 
-function drawBlock() {
+function drawBlock() {   
     if(rightDown) {
         block.x += 3
         block.direction = "right"
@@ -100,7 +101,7 @@ function drawBlock() {
 
     if(upDown && jump) {
         jump = false
-        block.s = 10
+        block.s = 13.5
     }
 
     block.y -= block.s
@@ -158,8 +159,26 @@ function drawBlock() {
     gracePeriod -= 1
 
     if(block.health <= 0) {
-        alert("dood") // to improve later on
-        varReset()
+        if(level >= highScore) {
+            highScore = level
+        }
+        clearInterval(x)
+        paused = true
+        ctx.beginPath()
+        ctx.rect(0,0,canvas.width,canvas.height)
+        ctx.fillStyle = "rgba(135,21,21,0.7)";
+        ctx.fill()
+        ctx.closePath()
+        ctx.beginPath()
+        ctx.font = "72px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("Death", 400, canvas.height/2)
+        ctx.closePath()
+        ctx.beginPath()
+        ctx.font = "48px Arial";
+        ctx.fillText("Click ENTER to restart.", 250, 320)
+        ctx.closePath()
+        
     }
 }
 
@@ -225,11 +244,19 @@ function drawEnemies() {
         }
 
         enemies[i].x += enemies[i].speed * (1 - enemies[i].speedhandicap)
+
+        var yorick = new Image;
+        yorick.src = "./files/yorick.png"
+
         ctx.beginPath()
+        ctx.drawImage(yorick, enemies[i].x, enemies[i].y)
+        ctx.closePath()
+    
+        /*ctx.beginPath()
         ctx.rect(enemies[i].x, enemies[i].y, enemies[i].dx, enemies[i].dy)
         ctx.fillStyle = "green"
         ctx.fill()
-        ctx.closePath()
+        ctx.closePath()*/
         /*ctx.beginPath()
         ctx.font = "30px Arial";
         ctx.fillText(enemies[i].health, enemies[i].x, enemies[i].y);
@@ -300,7 +327,7 @@ function drawBackgroundMisc() {
     ctx.beginPath()
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText(level, 50, 50);
+    ctx.fillText("Level: " + level + ". Highest level: " + highScore, 50, 50);
     ctx.closePath()
 
 
@@ -319,8 +346,9 @@ function drawBackgroundMisc() {
 
 function drawMisc() {
 
-    //red screen on damage
+    //red screen on damage   
     red -= 1
+    if(block.health <= 0) red = 0
     ctx.beginPath()
     ctx.rect(0,0,canvas.width, canvas.height)
     ctx.fillStyle = "rgba(255, 0, 0, " + red/100 +")"
@@ -434,6 +462,15 @@ document.addEventListener("keydown", function(e) {
                                 ctx.fillStyle = "blue"
                                 ctx.fillText("Press Esc to continue.", 20, canvas.height/2)
                                 ctx.closePath()
+                            }
+                        } else {
+                            if(e.key == "Enter") {
+                                if(paused) {
+                                    
+                                    stoppauseorwhatever()
+                                    paused = false
+                                    varReset()
+                                } 
                             }
                         }
                     }
@@ -584,7 +621,7 @@ function winst() {
 
     }
     if(level == 1) {
-        tutText = "Good job!, theres also enemies! They will hurt you..."
+        tutText = "Good job!, there are also enemies! They will hurt you..."
         subTutText = "Use your space bar too shoot them!"
         enemies = {
             0: {
@@ -659,14 +696,56 @@ function winst() {
             d: unit * 2,
             exists: true
         }
+    } else if(level == 5) {
+        tutText = "The best of luck on the rest of your journey!"
+        subTutText = "You will need it!"
     } else {
-        if(level == 5) {
-            tutText = "The best of luck on the rest of your journey!"
-            subTutText = "You will need it!"
-        } else {
-            tutText = ""
-            subTutText = ""
+        tutText = ""
+        subTutText = ""
+
+        enemyAmount = 1 + Math.ceil((0.3 * (level - 5)) * Math.random())
+        
+        for(var i = 0 ; i < enemyAmount; i++) {
+            if(enemies[0]) {
+                size = Object.keys(enemies).length - 1;
+            } else {
+                var size = -1
+            }
+            var n = size + 1
+
+            theHealth = 100 + Math.round((level * 5) * Math.random())
+
+            if(Math.random() <= 0.3) {
+                theType = "loop"
+            } else {
+                theType = "shoot"
+            }
+
+            enemies[n] = {
+                x: (canvas.width / 2) + (Math.random() * (canvas.width / 2) - unit * 2),
+                y: floor.y - (4 * unit),
+                dx: unit * 2,
+                dy: unit * 4,
+                health: theHealth,
+                maxhealth: theHealth, 
+                dood: false,
+                type: theType,
+                speed: 0,
+                speedhandicap: Math.random() * 0.7,
+                direction: "left"
+            }
+
         }
+
+        if(Math.random() <= 0.2) {
+            bandaid = {
+                x: Math.random() * (unit * 30),
+                y: floor.y - (unit * 10) + (Math.random() * 8),
+                d: unit * 2,
+                exists: true
+            }
+        }
+
     }
 }
 
