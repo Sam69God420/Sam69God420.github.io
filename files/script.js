@@ -5,10 +5,9 @@ unit = canvas.height / 20
 
 person = "jelmer"
 
-tutText = "Welcome! Progress by walking that way \u2192"
-subTutText = "You can use your arrow keys to move!"
-
 loadLanguages() // I prefer this at the bottom of the code 
+
+standardLanguage()
 
 varReset()
 
@@ -437,7 +436,7 @@ function drawBackgroundMisc() {
     ctx.beginPath()
     ctx.font = "30px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText(knaken, 500, 61);
+    ctx.fillText(knaken, 480, 61);
     ctx.closePath()
 
     /*ctx.beginPath()
@@ -502,12 +501,29 @@ function drawMisc() {
 document.addEventListener("keydown", function(e) {
     if(!gameOn){
         if(e.key == "Enter") {
+
+            tutText = T1
+            subTutText = ST1
             x = setInterval(draw, 10)
             gameOn = true
         } else if(e.key == "n") {
-            alert("Working on this")
+            T1 = dutch.T1
+            ST1 = dutch.ST1
+            T2 = dutch.T2
+            ST2 = dutch.ST2
+            T3 = dutch.T3
+            ST3 = dutch.ST3
+            T4 = dutch.T4
+            ST4 = dutch.ST4
+            T5 = dutch.T5
+            ST5 = dutch.ST5
+            T6 = dutch.T6
+            ST6 = dutch.ST6
+
         } else if(e.key == "e") {
-            alert("Bruf im working on this")
+            
+            standardLanguage()
+
         }
 
 
@@ -777,8 +793,8 @@ function winst() {
 
     }
     if(level == 1) {
-        tutText = "Good job!, there are also enemies! They will hurt you..."
-        subTutText = "Use your space bar too shoot them!"
+        tutText = T2
+        subTutText = ST2
         enemies = {
             0: {
                 x: unit*30,
@@ -796,8 +812,8 @@ function winst() {
             }
         }
     } else if(level == 2) {
-        tutText = "Oh no theres 2 now! they come walking at you...."
-        subTutText = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        tutText = T3
+        subTutText = ST3
         enemies = {
             0: {
                 x: unit*25,
@@ -829,8 +845,8 @@ function winst() {
             }
         }
     } else if(level == 3) {
-        tutText = "This one shoots?!?!"
-        subTutText = "Oh god oh fuck."
+        tutText = T4
+        subTutText = ST4
         enemies = {
             0: {
                 x: unit*30,
@@ -848,8 +864,8 @@ function winst() {
             }
         }
     } else if(level == 4) {
-        tutText = "You must be hurt by now...."
-        subTutText = "Take some bandaid :)"
+        tutText = T5
+        subTutText = ST5
         bandaid = {
             x: unit * 30,
             y: floor.y - (unit * 10),
@@ -857,8 +873,8 @@ function winst() {
             exists: true
         }
     } else if(level == 5) {
-        tutText = "The best of luck on the rest of your journey!"
-        subTutText = "You will need it!"
+        tutText = T6
+        subTutText = ST6
     } else {
         tutText = ""
         subTutText = ""
@@ -1034,7 +1050,49 @@ function metronome() {
     }
 }
 
-function loadLanguages() {
+function loadLanguages() { // im so sorry this code is so wet please forgive me 
+    dutch = {
+        T1: "Welkom! U krijgt hogere scores door die kant op te lopen \u2192",
+        ST1: "U kunt bewegen door de pijlknoppen te gebruiken.",
+        T2: "Goed gedaan! Er zijn ook tegenstanders die je pijn zullen doen....",
+        ST2: "Je kan ze beschieten door op spatie te drukken!",
+        T3: "Oh jeetje, nu zijn het er 2! En ze komen op je af.",
+        ST3: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        T4: "Deze schiet?",
+        ST4: "Oh nee!",
+        T5: "Je zal jezelf wel pijn gedaan hebben...",
+        ST5: "Neem een pleister. :)",
+        T6: "Succes met de rest van de avontuur!",
+        ST6: "Je zal het nodig hebben.",
+    }
+    english = {
+        T1: "Welcome! Progress by walking that way \u2192",
+        ST1: "You can use your arrow keys to move!",
+        T2: "Good job! There are also enemies! They will hurt you...",
+        ST2: "Use your space bar to shoot them!",
+        T3: "Oh no theres 2 now! They come walking at you!",
+        ST3: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        T4: "This one shoots?!?!",
+        ST4: "Oh god oh fuck.",
+        T5: "You must be hurt by now...",
+        ST5: "Take some bandaid :)",
+        T6: "The best of luck on the rest of your journey!",
+        ST6: "You will need it!",
+    }
+}
 
+function standardLanguage() {
+    T1 = english.T1
+    ST1 = english.ST1
+    T2 = english.T2
+    ST2 = english.ST2
+    T3 = english.T3
+    ST3 = english.ST3
+    T4 = english.T4
+    ST4 = english.ST4
+    T5 = english.T5
+    ST5 = english.ST5
+    T6 = english.T6
+    ST6 = english.ST6
 }
 
