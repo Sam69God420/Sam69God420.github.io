@@ -92,10 +92,38 @@ function varReset() {
         exists: false
     }
 
-    
-
 }
 
+//main menu
+
+gameOn = false
+
+
+ctx.beginPath()
+ctx.font = "72px Arial";
+ctx.fillStyle = "white";
+ctx.fillText("Enter to start", 50, 270)
+ctx.closePath()
+
+ctx.beginPath()
+ctx.font = "30px Arial";
+ctx.fillStyle = "white";
+ctx.fillText("N for Dutch", canvas.width / 2 + 50, 30)
+ctx.closePath()
+
+ctx.beginPath()
+ctx.font = "30px Arial";
+ctx.fillStyle = "white";
+ctx.fillText("E for English", canvas.width / 2 + 50, 80)
+ctx.closePath()
+
+var pascpic = new Image;
+pascpic.src = "./files/flipscal.png"
+
+ctx.beginPath()
+ctx.drawImage(pascpic, 34, 34)
+ctx.closePath()
+    
 
 //drawing
 
@@ -361,7 +389,8 @@ function drawFloor() {
     vloer.src = "./files/floor.png"
 
     ctx.beginPath()
-    ctx.drawImage(vloer,    0, floor.y)    
+    ctx.drawImage(vloer, 0, floor.y)    
+    ctx.closePath()
 
 
     ctx.beginPath()
@@ -471,6 +500,18 @@ function drawMisc() {
 //input
 
 document.addEventListener("keydown", function(e) {
+    if(!gameOn){
+        if(e.key == "Enter") {
+            x = setInterval(draw, 10)
+            gameOn = true
+        }
+
+
+
+        return
+    }
+
+
     if(e.key == "ArrowRight") {
         rightDown = true
     } else {
@@ -900,9 +941,6 @@ function stoppauseorwhatever() {
         bgin()
         varreset()
     }
-    showt = false
-    cm = false
-    gameon = true
     clearInterval(x)
     x = setInterval(draw, 10)
 }
@@ -993,7 +1031,6 @@ function metronome() {
 }
 
 function loadLanguages() {
-    
+
 }
 
-x = setInterval(draw, 10)
