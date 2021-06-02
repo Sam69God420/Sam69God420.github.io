@@ -20,6 +20,8 @@ tobinUnlocked = false
 
 hitboxes = false
 
+tripmode = false
+
 endx = unit * 3
 endy = unit * 5
 
@@ -91,7 +93,9 @@ function varReset() {
 //drawing
 
 function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height)
+    if(!tripmode) {
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+    }
     drawEnemies() 
     drawFloor()
     drawBackgroundMisc()
@@ -509,6 +513,14 @@ document.addEventListener("keydown", function(e) {
                                             hitboxes = false
                                         } else {
                                             hitboxes = true
+                                        }
+                                    } else {
+                                        if(e.key == "t") {
+                                            if(tripmode) {
+                                                tripmode = false
+                                            } else {
+                                                tripmode = true
+                                            }
                                         }
                                     }
                                 }
