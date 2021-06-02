@@ -8,6 +8,8 @@ person = "jelmer"
 tutText = "Welcome! Progress by walking that way \u2192"
 subTutText = "You can use your arrow keys to move!"
 
+loadLanguages() // I prefer this at the bottom of the code 
+
 varReset()
 
 highScore = 0
@@ -371,12 +373,49 @@ function drawFloor() {
 
 function drawBackgroundMisc() {
 
-    //score
+    //hud
+
+    var levelhud = new Image;
+    levelhud.src = "./files/levelhud.png"
+
     ctx.beginPath()
+    ctx.drawImage(levelhud, 10, 10)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(level, 115, 61);
+    ctx.closePath()
+
+    var highscorehud = new Image;
+    highscorehud.src = "./files/highscorehud.png"
+
+    ctx.beginPath()
+    ctx.drawImage(highscorehud, 198, 10)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(highScore, 318, 61);
+    ctx.closePath()
+
+    var coinhud = new Image;
+    coinhud.src = "./files/coinhud.png"
+
+    ctx.beginPath()
+    ctx.drawImage(coinhud, 386, 10)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(knaken, 500, 61);
+    ctx.closePath()
+
+    /*ctx.beginPath()
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Level: " + level + ". Highest level: " + highScore + ". Knaken ($): " + knaken + ".", 50, 50);
-    ctx.closePath()
+    ctx.closePath()*/
 
 
     //tutorial
@@ -953,5 +992,8 @@ function metronome() {
     }
 }
 
+function loadLanguages() {
+    
+}
 
 x = setInterval(draw, 10)
