@@ -18,6 +18,8 @@ jelmerUnlocked = false
 samUnlocked = false
 tobinUnlocked = false
 
+hitboxes = false
+
 function varReset() {
 
     block = {
@@ -154,6 +156,14 @@ function drawBlock() {
     ctx.fill()
     ctx.closePath()*/
 
+    if(hitboxes) {
+        ctx.beginPath()
+        ctx.rect(block.x,block.y, block.d,block.d)
+        ctx.strokeStyle = "red"
+        ctx.stroke()
+        ctx.closePath()
+    }
+
     ctx.beginPath()
     ctx.rect(block.x - unit, block.y - (unit * 2), block.d + unit * 2, 10)
     ctx.fillStyle = "red"
@@ -169,33 +179,8 @@ function drawBlock() {
 
     if(block.health <= 0) {
         
-        if(level >= highScore) {
-            highScore = level
-        }
-        if(highScore <= 5) {
-            tutText = "Welcome! Progress by walking that way \u2192"
-            subTutText = "You can use your arrow keys to move!"
-        } else {
-            tutText = "You can skip the tutorial if you want."
-            subTutText = "Just press 's'!"
-        }
-        clearInterval(x)
-        paused = true
-        ctx.beginPath()
-        ctx.rect(0,0,canvas.width,canvas.height)
-        ctx.fillStyle = "rgba(135,21,21,0.7)";
-        ctx.fill()
-        ctx.closePath()
-        ctx.beginPath()
-        ctx.font = "72px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("Death", 400, canvas.height/2)
-        ctx.closePath()
-        ctx.beginPath()
-        ctx.font = "48px Arial";
-        ctx.fillText("Click ENTER to restart.", 250, 320)
-        ctx.closePath()
-        
+        dood()
+
     }
 }
 
@@ -325,11 +310,18 @@ function drawEnemies() {
 }
 
 function drawFloor() {
+    //ctx.beginPath()
+    //ctx.rect(0, floor.y, canvas.width, unit*4)
+    //ctx.fillStyle = "#999"
+    //ctx.fill()
+    //ctx.closePath()
+
+    var vloer = new Image;
+    vloer.src = "./files/floor.png"
+
     ctx.beginPath()
-    ctx.rect(0, floor.y, canvas.width, unit*4)
-    ctx.fillStyle = "#999"
-    ctx.fill()
-    ctx.closePath()
+    ctx.drawImage(vloer,    0, floor.y)    
+
 
     ctx.beginPath()
     ctx.rect(0, floor.y, canvas.width, 5)
@@ -494,8 +486,16 @@ document.addEventListener("keydown", function(e) {
                                         level = 4
                                         winst()
                                     }
+                                } else {
+                                    if(e.key == "h") {
+                                        if(hitboxes) {
+                                            hitboxes = false
+                                        } else {
+                                            hitboxes = true
+                                        }
+                                    }
                                 }
-                            }
+                            } 
                         }
                     }
                 }
@@ -779,6 +779,36 @@ function winst() {
     }
 }
 
+function dood() {
+    if(level >= highScore) {
+        highScore = level
+    }
+    if(highScore <= 5) {
+        tutText = "Welcome! Progress by walking that way \u2192"
+        subTutText = "You can use your arrow keys to move!"
+    } else {
+        tutText = "You can skip the tutorial if you want."
+        subTutText = "Just press 's'!"
+    }
+    clearInterval(x)
+    paused = true
+    ctx.beginPath()
+    ctx.rect(0,0,canvas.width,canvas.height)
+    ctx.fillStyle = "rgba(135,21,21,0.7)";
+    ctx.fill()
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.font = "72px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Death", 400, canvas.height/2)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.font = "48px Arial";
+    ctx.fillText("Click ENTER to restart.", 250, 320)
+    ctx.closePath()
+    
+}
+
 function stoppauseorwhatever() {
     if(!paused) {
         bgin()
@@ -799,7 +829,7 @@ function setPascal() {
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
-    varReset()
+    dood()
 }
 
 function setJelmer() {
@@ -816,7 +846,7 @@ function setJelmer() {
     jelmerUnlocked = true
     person = "jelmer"
     
-    varReset()
+    dood()
 }
 
 function setSam() {
@@ -833,8 +863,7 @@ function setSam() {
     samUnlocked = true
     person = "sam"
     
-
-    varReset()
+    dood()
 }
 
 function setTobin() {
@@ -851,7 +880,7 @@ function setTobin() {
     tobinUnlocked = true
     person = "tobin"
     
-    varReset()
+    dood()
 }
 
 function checkKnaken(a) {
@@ -862,7 +891,7 @@ function checkKnaken(a) {
     }
     tutText = "Welcome! Progress by walking that way \u2192"
     subTutText = "You can use your arrow keys to move!"
-    knaken -= 100
+    knaken -= a
     return true
     
 }
