@@ -123,7 +123,7 @@ pascpic.src = "./files/flipscal.png"
 ctx.beginPath()
 ctx.drawImage(pascpic, 34, 34)
 ctx.closePath()
-    
+
 
 //drawing
 
@@ -504,6 +504,10 @@ document.addEventListener("keydown", function(e) {
         if(e.key == "Enter") {
             x = setInterval(draw, 10)
             gameOn = true
+        } else if(e.key == "n") {
+            alert("Working on this")
+        } else if(e.key == "e") {
+            alert("Bruf im working on this")
         }
 
 
