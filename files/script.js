@@ -20,6 +20,9 @@ tobinUnlocked = false
 
 hitboxes = false
 
+endx = unit * 3
+endy = unit * 5
+
 function varReset() {
 
     block = {
@@ -247,8 +250,14 @@ function drawEnemies() {
 
         enemies[i].x += enemies[i].speed * (1 - enemies[i].speedhandicap)
 
-        var yorick = new Image;
-        yorick.src = "./files/yorick.png"
+        if(enemies[i].type == "shoot") {
+            var yorick = new Image;
+            yorick.src = "./files/yorick.png"
+        } else {
+            var yorick = new Image;
+            yorick.src = "./files/shankrick.png"
+        }
+        
 
         ctx.beginPath()
         ctx.drawImage(yorick, enemies[i].x, enemies[i].y)
@@ -264,6 +273,14 @@ function drawEnemies() {
         ctx.fillText(enemies[i].health, enemies[i].x, enemies[i].y);
         ctx.closePath()*/
         
+        if(hitboxes) {
+            ctx.beginPath()
+            ctx.rect(enemies[i].x,enemies[i].y,enemies[i].dx,enemies[i].dy)
+            ctx.strokeStyle = "green"
+            ctx.stroke()
+            ctx.closePath()
+        }
+
         ctx.beginPath()
         ctx.rect(enemies[i].x - unit, enemies[i].y - (unit * 2), enemies[i].dx + unit * 2, 10)
         ctx.fillStyle = "red"
@@ -651,9 +668,9 @@ function winst() {
         enemies = {
             0: {
                 x: unit*30,
-                y: floor.y - (4 * unit),
-                dx: unit * 2,
-                dy: unit * 4,
+                y: floor.y - endy,
+                dx: endx,
+                dy: endy,
                 health: 100,
                 maxhealth: 100, 
                 dood: false,
@@ -670,9 +687,9 @@ function winst() {
         enemies = {
             0: {
                 x: unit*25,
-                y: floor.y - (4 * unit),
-                dx: unit * 2,
-                dy: unit * 4,
+                y: floor.y - endy,
+                dx: endx,
+                dy: endy,
                 health: 100,
                 maxhealth: 100, 
                 dood: false,
@@ -684,9 +701,9 @@ function winst() {
             },
             1: {
                 x: unit*30,
-                y: floor.y - (4 * unit),
-                dx: unit * 2,
-                dy: unit * 4,
+                y: floor.y - endy,
+                dx: endx,
+                dy: endy,
                 health: 100,
                 maxhealth: 100, 
                 dood: false,
@@ -703,9 +720,9 @@ function winst() {
         enemies = {
             0: {
                 x: unit*30,
-                y: floor.y - (4 * unit),
-                dx: unit * 2,
-                dy: unit * 4,
+                y: floor.y - endy,
+                dx: endx,
+                dy: endy,
                 health: 100,
                 maxhealth: 100, 
                 dood: false,
@@ -752,9 +769,9 @@ function winst() {
 
             enemies[n] = {
                 x: (canvas.width / 2) + (Math.random() * (canvas.width / 2) - unit * 2),
-                y: floor.y - (4 * unit),
-                dx: unit * 2,
-                dy: unit * 4,
+                y: floor.y - endy,
+                dx: endx,
+                dy: endy,
                 health: theHealth,
                 maxhealth: theHealth, 
                 dood: false,
