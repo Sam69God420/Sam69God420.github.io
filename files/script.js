@@ -33,7 +33,7 @@ function varReset() {
         y: canvas.height - (unit*10),
         d: 6 * unit,
         s:0,
-        health: 10,
+        health: 200,
         maxhealth: 200,
         direction: "right",
         person: person
