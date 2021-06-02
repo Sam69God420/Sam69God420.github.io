@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d")
 
 unit = canvas.height / 20
 
-person = "pascal"
+person = "jelmer"
 
 tutText = "Welcome! Progress by walking that way \u2192"
 subTutText = "You can use your arrow keys to move!"
@@ -14,7 +14,7 @@ highScore = 0
 
 knaken = 0
 
-jelmerUnlocked = false
+pascalUnlocked = false
 samUnlocked = false
 tobinUnlocked = false
 
@@ -36,6 +36,11 @@ function varReset() {
         maxhealth: 200,
         direction: "right",
         person: person
+    }
+
+    if(person == "pascal") {
+        block.health = 300
+        block.maxhealth = 300
     }
 
     floor = {
@@ -104,22 +109,35 @@ function draw() {
     checkInteraction() 
     drawBlock()
     metronome()
+    
 }
 
 function drawBlock() {   
     if(rightDown) {
+        if(block.person == "pascal") {
+            block.x += 1
+        }
         block.x += 3
         block.direction = "right"
     }
 
     if(leftDown) {
+        if(block.person == "pascal") {
+            block.x -= 1
+        }
         block.x -= 3
         block.direction = "left"
     }
 
     if(upDown && jump) {
-        jump = false
-        block.s = 13.5
+        if(block.person == "pascal") {
+            jump = false
+            block.s = 15
+        } else {
+            jump = false
+            block.s = 13.5
+        }
+        
     }
 
     block.y -= block.s
@@ -853,11 +871,19 @@ function stoppauseorwhatever() {
 
 
 function setPascal() {
-
-    person = "pascal"
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
+
+    if(!pascalUnlocked) {
+        check = checkKnaken(2500)
+        if(!check) return;
+    }
+
+    document.getElementById("pascalButton").innerHTML = "Godscal"
+    pascalUnlocked = true
+    person = "pascal"
+
     dood()
 }
 
@@ -865,14 +891,6 @@ function setJelmer() {
     Array.from(document.querySelectorAll("button")).forEach(btn => {
         btn.blur();
     });
-
-    if(!jelmerUnlocked) {
-        check = checkKnaken(1000)
-        if(!check) return;
-    }
-    
-    document.getElementById("jelmerButton").innerHTML = "Jelmer"
-    jelmerUnlocked = true
     person = "jelmer"
     
     dood()

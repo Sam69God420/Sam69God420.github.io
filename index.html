@@ -22,11 +22,18 @@ canvas {
 #butdiv button:hover {
     background-color: #66ffff;
 }
+#jelmerButton {
+    border-bottom-left-radius: 20px;
+}
+#pascalButton {
+    border-bottom-right-radius: 20px;
+}
+
 </style>
 </head>
 <body>
 <canvas id="mycanvas" width="960" height="480"></canvas>
-<div id="butdiv"><button onclick="setPascal()">Pascal</button><button id="jelmerButton" onclick="setJelmer()">Jelmer ($1000)</button><button id="samButton" onclick="setSam()">Sam ($1000)</button><button id="tobinButton" onclick="setTobin()">Tobin ($1000)</button></div>
+<div id="butdiv"><button id="jelmerButton" onclick="setJelmer()">Jelmer</button><button id="tobinButton" onclick="setTobin()">tobin ($1000)</button><button id="samButton" onclick="setSam()">Sam ($1000)</button><button id="pascalButton" onclick="setPascal()">Godscal ($2500)</button></div>
 
 
 
