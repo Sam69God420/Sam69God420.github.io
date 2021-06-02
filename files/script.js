@@ -7,7 +7,7 @@ person = "jelmer"
 
 loadLanguages() // I prefer this at the bottom of the code 
 
-standardLanguage()
+standardLanguage() // too set the standard language too english 
 
 varReset()
 
@@ -33,7 +33,7 @@ function varReset() {
         y: canvas.height - (unit*10),
         d: 6 * unit,
         s:0,
-        health: 200,
+        health: 10,
         maxhealth: 200,
         direction: "right",
         person: person
@@ -232,7 +232,7 @@ function drawBlock() {
     gracePeriod -= 1
 
     if(block.health <= 0) {
-        
+        new Audio("./files/dood.mp3").play()
         dood()
 
     }
@@ -555,6 +555,7 @@ document.addEventListener("keydown", function(e) {
                             var size = -1
                         }
                         var n = size + 1
+                        new Audio("./files/shoot.mp3").play()
                         for(var i=0 ; i<size ; i++) {
                             if(bullets[i].x >= canvas.width) {
                                 bullets[i].x = block.x + unit*5,
@@ -723,6 +724,7 @@ function checkInteraction() {
                         if(enemies[i].health <= 0) {
                             enemies[i].dood = true
                             knaken += enemies[i].worth
+                            new Audio("./files/dood2.mp3").play()
                         }
                     }
                 }
@@ -1095,4 +1097,3 @@ function standardLanguage() {
     T6 = english.T6
     ST6 = english.ST6
 }
-
