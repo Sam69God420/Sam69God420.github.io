@@ -121,7 +121,7 @@ var pascpic = new Image;
 pascpic.src = "./files/flipscal.png"
 
 ctx.beginPath()
-ctx.drawImage(pascpic, 34, 34)
+ctx.drawImage(pascpic, canvas.width / 2 + 100, canvas.height / 2)
 ctx.closePath()
 
 
