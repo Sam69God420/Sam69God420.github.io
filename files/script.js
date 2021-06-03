@@ -130,9 +130,9 @@ function draw() {
     if(!tripmode) {
         ctx.clearRect(0,0,canvas.width,canvas.height)
     }
+    drawBackgroundMisc()
     drawEnemies() 
     drawFloor()
-    drawBackgroundMisc()
     drawBullets()
     drawMisc()
     checkInteraction() 
@@ -400,6 +400,14 @@ function drawFloor() {
 }
 
 function drawBackgroundMisc() {
+
+    // actual background
+
+    var mountain = new Image()
+    mountain.src = "./files/berg.png"
+    ctx.beginPath()
+    ctx.drawImage(mountain,0,0)
+    ctx.closePath()
 
     //hud
 
@@ -812,6 +820,7 @@ function checkInteraction() {
 //misc
 
 function winst() {
+    if(bandaid.exists) bandaid.exists = false
     block.x = 0
     level++
     bullets = {
