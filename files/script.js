@@ -405,9 +405,13 @@ function drawBackgroundMisc() {
 
     var mountain = new Image()
     mountain.src = "./files/berg.png"
-    ctx.beginPath()
-    ctx.drawImage(mountain,0,0)
-    ctx.closePath()
+
+    if(!tripmode){
+        ctx.beginPath()
+        ctx.drawImage(mountain,0,0)
+        ctx.closePath()
+    }
+    
 
     //hud
 
