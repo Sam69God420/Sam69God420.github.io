@@ -519,10 +519,39 @@ document.addEventListener("keydown", function(e) {
             ST5 = dutch.ST5
             T6 = dutch.T6
             ST6 = dutch.ST6
+            skeer = dutch.skeer
+            sSkeer = dutch.sSkeer
+            skip = dutch.skip
+            sSkip = dutch.sSkip
+
+            ctx.beginPath()
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "green";
+            ctx.fillText("N for Dutch", canvas.width / 2 + 50, 30)
+            ctx.closePath()
+
+            ctx.beginPath()
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("E for English", canvas.width / 2 + 50, 80)
+            ctx.closePath()
 
         } else if(e.key == "e") {
             
             standardLanguage()
+
+            ctx.beginPath()
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("N for Dutch", canvas.width / 2 + 50, 30)
+            ctx.closePath()
+
+            ctx.beginPath()
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "green";
+            ctx.fillText("E for English", canvas.width / 2 + 50, 80)
+            ctx.closePath()
+
 
         }
 
@@ -933,11 +962,11 @@ function dood() {
         highScore = level
     }
     if(highScore <= 5) {
-        tutText = "Welcome! Progress by walking that way \u2192"
-        subTutText = "You can use your arrow keys to move!"
+        tutText = T1
+        subTutText = ST1
     } else {
-        tutText = "You can skip the tutorial if you want."
-        subTutText = "Just press 's'!"
+        tutText = skip
+        subTutText = sSkip
     }
     clearInterval(x)
     paused = true
@@ -1031,12 +1060,12 @@ function setTobin() {
 
 function checkKnaken(a) {
     if(knaken < a) {
-        tutText = "You don't have enough money!"
-        subTutText = "Go kill some people or something..."
+        tutText = skeer
+        subTutText = sSkeer
         return false
     }
-    tutText = "Welcome! Progress by walking that way \u2192"
-    subTutText = "You can use your arrow keys to move!"
+    tutText = T1
+    subTutText = ST1
     knaken -= a
     return true
     
@@ -1064,8 +1093,12 @@ function loadLanguages() { // im so sorry this code is so wet please forgive me
         ST4: "Oh nee!",
         T5: "Je zal jezelf wel pijn gedaan hebben...",
         ST5: "Neem een pleister. :)",
-        T6: "Succes met de rest van de avontuur!",
+        T6: "Succes met de rest van het avontuur!",
         ST6: "Je zal het nodig hebben.",
+        skeer: "Je hebt niet genoeg knaken!",
+        sSkeer: "Ga wat knaken rapen ofzo...",
+        skip: "You kan de uitleg overslaan.",
+        sSkip: "Gewoon op 's' drukken."
     }
     english = {
         T1: "Welcome! Progress by walking that way \u2192",
@@ -1080,6 +1113,10 @@ function loadLanguages() { // im so sorry this code is so wet please forgive me
         ST5: "Take some bandaid :)",
         T6: "The best of luck on the rest of your journey!",
         ST6: "You will need it!",
+        skeer: "You don't have enough money!",
+        sSkeer: "Just go get some money...",
+        skip: "You can skip the tutorial if you want.",
+        sSkip: "Just press 's'."
     }
 }
 
@@ -1096,4 +1133,8 @@ function standardLanguage() {
     ST5 = english.ST5
     T6 = english.T6
     ST6 = english.ST6
+    skeer = english.skeer
+    sSkeer = english.sSkeer
+    skip = english.skip
+    sSkip = english.sSkip
 }
