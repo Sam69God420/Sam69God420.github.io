@@ -112,7 +112,7 @@ ctx.closePath()
 
 ctx.beginPath()
 ctx.font = "30px Arial";
-ctx.fillStyle = "white";
+ctx.fillStyle = "green";
 ctx.fillText("E for English", canvas.width / 2 + 50, 80)
 ctx.closePath()
 
@@ -138,7 +138,7 @@ function draw() {
     checkInteraction() 
     drawBlock()
     metronome()
-    
+
 }
 
 function drawBlock() {   
@@ -405,10 +405,24 @@ function drawBackgroundMisc() {
 
     var mountain = new Image()
     mountain.src = "./files/berg.png"
+    
+    var boom = new Image()
+    boom.src = "./files/bomen.png"
+
 
     if(!tripmode){
         ctx.beginPath()
         ctx.drawImage(mountain,0,0)
+        ctx.closePath()
+
+        if(level/2 == Math.round(level/2)) {
+            boomx = -200
+        } else {
+            boomx = 0
+        }
+
+        ctx.beginPath()
+        ctx.drawImage(boom,boomx,floor.y - 200)
         ctx.closePath()
     }
     
@@ -586,8 +600,9 @@ document.addEventListener("keydown", function(e) {
                     downDown = true
                 } else {
                     if(e.key == " ") {
-
+                        
                         if(alreadyShot) return;
+                
                         alreadyShot = true
                         shot = false
                         if(bullets[0]) {
