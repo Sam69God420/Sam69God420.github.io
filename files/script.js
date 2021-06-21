@@ -1136,7 +1136,7 @@ function loadLanguages() { // im so sorry this code is so wet please forgive me
         T3: "Oh no theres 2 now! They come walking at you!",
         ST3: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         T4: "This one shoots?!?!",
-        ST4: "Oh god oh fuck.",
+        ST4: "Please no.",
         T5: "You must be hurt by now...",
         ST5: "Take some bandaid :)",
         T6: "The best of luck on the rest of your journey!",
